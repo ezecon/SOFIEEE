@@ -10,7 +10,7 @@ const Reservation = () => {
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [phone, setPhone] = useState(""); // Changed to string to match input type
+  const [phone, setPhone] = useState(""); 
   const navigate = useNavigate();
 
   const handleReservation = async (e) => {
@@ -29,7 +29,7 @@ const Reservation = () => {
       toast.success(data.message);
       setFirstName("");
       setLastName("");
-      setPhone(""); // Reset phone to empty string
+      setPhone(""); 
       setEmail("");
       setTime("");
       setDate("");
@@ -53,7 +53,7 @@ const Reservation = () => {
           <div className="reservation_form_box">
             <h1>MAKE A RESERVATION</h1>
             <p>For Further Questions, Please Call</p>
-            <form onSubmit={handleReservation}> {/* Changed onClick to onSubmit */}
+            <form onSubmit={handleReservation}> 
               <div>
                 <input
                   type="text"
@@ -96,14 +96,14 @@ const Reservation = () => {
                   required
                 />
                 <input
-                  type="tel"  {/* Changed to tel for phone number */}
+                  type="tel" 
                   placeholder="Phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required
                 />
               </div>
-              <button type="submit"> {/* Removed onClick, handle via onSubmit */}
+              <button type="submit"> 
                 RESERVE NOW{" "}
                 <span>
                   <HiOutlineArrowNarrowRight />
