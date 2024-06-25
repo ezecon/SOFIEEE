@@ -1,4 +1,3 @@
-
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import axios from "axios";
 import { useState } from "react";
@@ -11,7 +10,7 @@ const Reservation = () => {
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [phone, setPhone] = useState(0);
+  const [phone, setPhone] = useState(""); // Changed to string to match input type
   const navigate = useNavigate();
 
   const handleReservation = async (e) => {
@@ -30,13 +29,17 @@ const Reservation = () => {
       toast.success(data.message);
       setFirstName("");
       setLastName("");
-      setPhone(0);
+      setPhone(""); // Reset phone to empty string
       setEmail("");
       setTime("");
       setDate("");
       navigate("/success");
     } catch (error) {
-      toast.error(error.response.data.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred. Please try again later.");
+      }
     }
   };
 
@@ -50,19 +53,21 @@ const Reservation = () => {
           <div className="reservation_form_box">
             <h1>MAKE A RESERVATION</h1>
             <p>For Further Questions, Please Call</p>
-            <form>
+            <form onSubmit={handleReservation}> {/* Changed onClick to onSubmit */}
               <div>
                 <input
                   type="text"
                   placeholder="First Name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  required
                 />
                 <input
                   type="text"
                   placeholder="Last Name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -71,12 +76,14 @@ const Reservation = () => {
                   placeholder="Date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
+                  required
                 />
                 <input
                   type="time"
                   placeholder="Time"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
+                  required
                 />
               </div>
               <div>
@@ -86,15 +93,17 @@ const Reservation = () => {
                   className="email_tag"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
                 <input
-                  type="number"
+                  type="tel"  {/* Changed to tel for phone number */}
                   placeholder="Phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
               </div>
-              <button type="submit" onClick={handleReservation}>
+              <button type="submit"> {/* Removed onClick, handle via onSubmit */}
                 RESERVE NOW{" "}
                 <span>
                   <HiOutlineArrowNarrowRight />
